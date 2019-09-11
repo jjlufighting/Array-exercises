@@ -1,0 +1,75 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+.wrapper{
+    padding: 10px 15px;
+    width: 400px;
+    border: 1px solid black;
+    /* top leftright bottom */
+    margin: 100px auto 0px;
+    border-radius: 6px;
+}
+/*  */
+.wrapper .sWrapper{
+    margin-bottom: 15px;
+}
+.wrapper .sWrapper .sText{
+    width: 220px;
+    height: 25px;
+    padding-left: 10px;
+    outline:none;
+    border-radius: 4px;
+    border: 1px solid cadetblue;
+}
+
+.wrapper .sWrapper .btn{
+    cursor: pointer;
+    color: cadetblue;
+    padding: 0px 5px;
+    border-radius: 4px;
+}
+.wrapper .sWrapper .btn.active{
+    background:cadetblue;
+    color: white;
+}
+
+
+
+/* friendList section style */
+.wrapper .flWrapper{
+    
+
+}
+.wrapper .flWrapper ul{
+
+}
+
+.wrapper .flWrapper ul li{
+    position: relative;
+    padding-left: 5px;
+    padding-top:10px;
+    padding-bottom:10px;
+    border:1px solid #999;
+
+}
+.wrapper .flWrapper ul li img{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+
+}
+.wrapper .flWrapper ul li p{
+    padding-left:75px;
+}
+.wrapper .flWrapper ul li .name{
+    margin-bottom: 10px;
+   
+}
+.wrapper .flWrapper ul li .des{
+    font-size: 12px;
+    color: #666;
+    
+}
