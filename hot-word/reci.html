@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hot-word</title>
+</head>
+<style>
+    *{
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+        
+    }
+    .tpl{
+        display: none;
+    }
+    .clearF::after{
+        content: '';
+        display:block;
+        clear: both;
+        overflow: hidden;
+    }
+    .wrapper{
+        border: 2px solid black;
+        padding: 10px 5px;
+        margin: 100px auto 0px;
+        width: 350px;
+    }
+    .wrapper .headSection{
+        margin-bottom: 10px;
+    }
+    .wrapper .headSection .hot{
+        font-size: 18px;
+        font-weight: bolder;
+        float: left;
+    }
+    .wrapper .headSection .change{
+        float: right;
+        cursor: pointer;
+        color: rgb(11, 86, 206);
+    }
+    .wrapper .showSection .number{
+        color: aliceblue;
+        background: rgb(11, 86 , 206);
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        display: inline-block;
+    }
+    .wrapper .showSection li{
+        padding: 5px 0;
+        border-bottom: 1px solid black;
+    }
+    .wrapper .showSection .mes{
+        float: right;
+
+    }
+    .wrapper .showSection .mes.up::after{
+        content: '';
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-image: url('./src/img/0.jpg');
+        background-size: 100% 100%;
+        /* background-position-y: 0px; */
+    }
+    
+
+    .wrapper .showSection .mes.down::after{
+        content: '';
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-image: url('./src/img/1.jpg');
+        background-size: 100% 100%;
+        background-position-y: 0.5px;
+    }
+
+</style>
+<body>
+    <div class="wrapper">
+        <div class="headSection clearF">
+            <span class="hot">搜索热点</span>
+            <span class="change">换一换</span>
+        </div>
+        <ul class="showSection">
+            <li class="tpl clearF">
+                <span class="number">1</span>
+                <span class='title'>今天长沙变天</span>
+                <span class="mes up">47758</span>
+            </li>
+        </ul>
+    </div>
+    <script src="./jquery-3.1.1.min.js"></script>
+    <script src="./serverData.js"></script>
+    <script>
+       
+     (function(data){
+         //初始化变量
+         var $Wrapper = $('.wrapper');
+         var $ShowSection = $Wrapper.find('.showSection');
+         var colorsArray = ['#f54545','#ff8547','#ffac38'];
+         //one *10
+         var curPage = 0;
+         var totalPage = Math.ceil( data.length / 10 );
+
+         //1 + curPage * 10  1
+         //1 + curPage * 10  11
+
+
+         $ShowSection.hide();
+
+         function bindEvennt(){
+             $Wrapper.find('.change').on('click',function(){
+                 //4
+                 //0 1 2 3
+                 curPage = ++curPage % totalPage;
+
+                 renderPage(data);
+
+             });
+         }
+
+
+         function renderPage(data){
+             //清空之前的值
+             //empty()
+             $ShowSection.hide().find('.showInt').remove();
+
+             //根据数据渲染页面
+             //35
+             //10 20 30 35
+             var len = (data.length - curPage * 10) >= 10 ? 10 : data.length - curPage * 10;
+
+             //
+
+             for(var i = 0;i < len; i++) {
+                 var $Clone = $Wrapper.find('.tpl').clone().removeClass('tpl').addClass('.showInt');
+                 var ele = data[i + curPage * 10];
+
+                 $Clone.children('span').eq(0)
+                    .text(i + curPage * 10 + 1).css('backgroundColor', curPage == 0 && colorsArray[i + curPage])
+                      .next()
+                        .text(ele.title)
+                          .next().text(ele.search)
+                            .addClass(ele.search > ele.hisSearch ? 'up' : 'down');
+                $ShowSection.append($Clone);
+             }
+             $ShowSection.fadeIn();
+         }
+         bindEvennt();
+         renderPage(data);
+     })(data);
+    </script>
+    
+</body>
+</html>
